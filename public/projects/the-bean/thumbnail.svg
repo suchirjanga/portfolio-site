@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1b1410"/>
+      <stop offset="100%" stop-color="#0a0807"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#bg)"/>
+  <g fill="#F5EFE6" fill-opacity="0.92" font-family="Italiana, serif">
+    <text x="80" y="300" font-size="92" letter-spacing="2">The Bean</text>
+  </g>
+  <g fill="#F5EFE6" fill-opacity="0.45" font-family="DM Sans, sans-serif" font-size="10" letter-spacing="4">
+    <text x="80" y="350">BEAN · GRIND · BLOOM · POUR · CUP</text>
+  </g>
+  <rect x="80" y="400" width="40" height="1" fill="#B8893A"/>
+</svg>
