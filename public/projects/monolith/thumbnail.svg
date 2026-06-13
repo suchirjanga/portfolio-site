@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="m-base" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0b0a09"/>
+      <stop offset="60%" stop-color="#060505"/>
+      <stop offset="100%" stop-color="#020202"/>
+    </linearGradient>
+    <radialGradient id="m-key" cx="74%" cy="26%" r="62%">
+      <stop offset="0%" stop-color="#5d3f1c" stop-opacity="0.7"/>
+      <stop offset="40%" stop-color="#2b1d0d" stop-opacity="0.32"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="m-front" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#141210"/>
+      <stop offset="100%" stop-color="#070605"/>
+    </linearGradient>
+    <linearGradient id="m-side" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#241809"/>
+      <stop offset="100%" stop-color="#0a0805"/>
+    </linearGradient>
+    <linearGradient id="m-top" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#3a2913"/>
+      <stop offset="100%" stop-color="#191207"/>
+    </linearGradient>
+    <linearGradient id="m-floor" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#B8893A" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#C99A4C" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#B8893A" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="m-vig" cx="50%" cy="42%" r="80%">
+      <stop offset="50%" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.74"/>
+    </radialGradient>
+    <filter id="m-soft" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="18"/>
+    </filter>
+    <filter id="m-shadow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="12"/>
+    </filter>
+    <filter id="m-grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+  </defs>
+
+  <rect width="800" height="600" fill="url(#m-base)"/>
+  <rect width="800" height="600" fill="url(#m-key)"/>
+
+  <!-- floor light + cast shadow -->
+  <ellipse cx="372" cy="452" rx="210" ry="26" fill="#000000" opacity="0.55" filter="url(#m-shadow)"/>
+  <rect x="150" y="450" width="500" height="2" fill="url(#m-floor)"/>
+
+  <!-- monolith: top, side, front -->
+  <polygon points="318,150 360,126 506,126 470,150" fill="url(#m-top)"/>
+  <polygon points="470,150 506,126 506,430 470,452" fill="url(#m-side)"/>
+  <polygon points="318,150 470,150 470,452 318,452" fill="url(#m-front)"/>
+
+  <!-- amber edge light on the lit corner -->
+  <line x1="470" y1="150" x2="470" y2="452" stroke="#E8B860" stroke-width="2" stroke-opacity="0.7"/>
+  <line x1="470" y1="150" x2="506" y2="126" stroke="#E8B860" stroke-width="1.5" stroke-opacity="0.5"/>
+  <line x1="506" y1="126" x2="506" y2="430" stroke="#7a5a2c" stroke-width="1.5" stroke-opacity="0.4"/>
+
+  <!-- soft glow hugging the lit edge -->
+  <rect x="468" y="150" width="6" height="300" fill="#E8B860" opacity="0.5" filter="url(#m-soft)"/>
+
+  <!-- wordmark -->
+  <text x="400" y="392" font-family="'DM Sans','Helvetica Neue',Arial,sans-serif" font-weight="700" font-size="58" letter-spacing="13" text-anchor="middle" fill="#F5EFE6">MONOLITH</text>
+  <text x="400" y="424" font-family="'DM Sans',Arial,sans-serif" font-size="12.5" letter-spacing="6" text-anchor="middle" fill="#F5EFE6" fill-opacity="0.5">STRENGTH · DISCIPLINE · PROGRESSION</text>
+  <rect x="384" y="186" width="32" height="1.5" fill="#B8893A"/>
+
+  <rect width="800" height="600" fill="url(#m-vig)"/>
+  <rect width="800" height="600" filter="url(#m-grain)" opacity="0.05"/>
+</svg>

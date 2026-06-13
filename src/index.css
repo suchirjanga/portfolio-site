@@ -72,6 +72,51 @@ a {
   color: var(--off-white);
 }
 
+/* Selected Work cards.
+   The whole card opens the live site (stretched ::before overlay); the small
+   "Details" link sits above it and opens the internal case study. */
+.work-card {
+  position: relative;
+}
+
+.work-thumb {
+  filter: saturate(0.9);
+  will-change: transform;
+}
+
+.work-card:hover .work-thumb {
+  transform: scale(1.045);
+  filter: saturate(1.04) brightness(1.05);
+}
+
+.work-cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.work-cta,
+.work-details {
+  position: relative;
+  z-index: 2;
+  transition: color 0.5s ease;
+}
+
+.work-cta:hover {
+  color: var(--off-white);
+}
+
+.work-details:hover {
+  color: rgba(245, 239, 230, 0.7);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .work-card:hover .work-thumb {
+    transform: none;
+  }
+}
+
 /* Project detail markdown body — restrained typography. */
 .prose {
   font-family: var(--font-sans);

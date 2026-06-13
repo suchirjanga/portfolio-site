@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="f-base" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0c0907"/>
+      <stop offset="55%" stop-color="#070504"/>
+      <stop offset="100%" stop-color="#040302"/>
+    </linearGradient>
+    <radialGradient id="f-ember" cx="50%" cy="104%" r="72%">
+      <stop offset="0%" stop-color="#7a4516" stop-opacity="0.95"/>
+      <stop offset="32%" stop-color="#3e2410" stop-opacity="0.55"/>
+      <stop offset="68%" stop-color="#1a0f06" stop-opacity="0.14"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="f-molten" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#B8893A" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#F0C173" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#B8893A" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="f-vig" cx="50%" cy="40%" r="78%">
+      <stop offset="52%" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.72"/>
+    </radialGradient>
+    <filter id="f-soft" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="16"/>
+    </filter>
+    <filter id="f-grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+  </defs>
+
+  <rect width="800" height="600" fill="url(#f-base)"/>
+  <rect width="800" height="600" fill="url(#f-ember)"/>
+
+  <!-- molten horizon -->
+  <rect x="0" y="384" width="800" height="64" fill="url(#f-molten)" opacity="0.45" filter="url(#f-soft)"/>
+  <rect x="170" y="420" width="460" height="2" fill="url(#f-molten)"/>
+
+  <!-- rising sparks -->
+  <g fill="#F0C173">
+    <circle cx="276" cy="372" r="1.6" opacity="0.85"/>
+    <circle cx="352" cy="306" r="1.2" opacity="0.6"/>
+    <circle cx="300" cy="338" r="1.0" opacity="0.5"/>
+    <circle cx="452" cy="352" r="1.8" opacity="0.7"/>
+    <circle cx="512" cy="290" r="1.1" opacity="0.5"/>
+    <circle cx="486" cy="332" r="1.0" opacity="0.42"/>
+    <circle cx="410" cy="262" r="1.0" opacity="0.38"/>
+    <circle cx="548" cy="356" r="1.3" opacity="0.55"/>
+  </g>
+
+  <!-- wordmark glow + mark -->
+  <text x="406" y="312" font-family="'DM Sans','Helvetica Neue',Arial,sans-serif" font-weight="700" font-size="112" letter-spacing="18" text-anchor="middle" fill="#B8893A" opacity="0.38" filter="url(#f-soft)">FORGE</text>
+  <text x="406" y="312" font-family="'DM Sans','Helvetica Neue',Arial,sans-serif" font-weight="700" font-size="112" letter-spacing="18" text-anchor="middle" fill="#F5EFE6">FORGE</text>
+
+  <text x="400" y="366" font-family="'DM Sans',Arial,sans-serif" font-size="13" letter-spacing="6.5" text-anchor="middle" fill="#F5EFE6" fill-opacity="0.5">STRENGTH · RECOVERY · CONSISTENCY</text>
+  <rect x="383" y="390" width="34" height="1.5" fill="#B8893A"/>
+
+  <rect width="800" height="600" fill="url(#f-vig)"/>
+  <rect width="800" height="600" filter="url(#f-grain)" opacity="0.05"/>
+</svg>

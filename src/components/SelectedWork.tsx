@@ -19,12 +19,13 @@ export default function SelectedWork() {
         <ul style={styles.list}>
           {projects.map((p, i) => (
             <FadeRise key={p.slug} delay={i * 0.05}>
-              <li style={styles.item}>
-                <Link to={`/work/${p.slug}`} style={styles.card}>
+              <li className="work-card" style={styles.item}>
+                <div style={styles.card}>
                   <div style={styles.thumbWrap}>
                     <img
+                      className="work-thumb"
                       src={p.thumbnail}
-                      alt=""
+                      alt={`${p.title} — project cover`}
                       loading="lazy"
                       style={styles.thumb}
                     />
@@ -36,9 +37,37 @@ export default function SelectedWork() {
                     </div>
                     <p style={styles.role}>{p.role}</p>
                     <p style={styles.desc}>{p.description}</p>
-                    <span style={styles.viewLink}>View project →</span>
+                    <div style={styles.actions}>
+                      {p.liveUrl ? (
+                        <a
+                          className="work-cta"
+                          href={p.liveUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          style={styles.viewLink}
+                          aria-label={`View ${p.title} — opens the live site in a new tab`}
+                        >
+                          View Project →
+                        </a>
+                      ) : (
+                        <Link
+                          className="work-cta"
+                          to={`/work/${p.slug}`}
+                          style={styles.viewLink}
+                        >
+                          View Project →
+                        </Link>
+                      )}
+                      <Link
+                        className="work-details"
+                        to={`/work/${p.slug}`}
+                        style={styles.detailsLink}
+                      >
+                        Details
+                      </Link>
+                    </div>
                   </div>
-                </Link>
+                </div>
               </li>
             </FadeRise>
           ))}
@@ -114,7 +143,6 @@ const styles = {
     height: '100%',
     objectFit: 'cover',
     transition: 'transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s ease',
-    filter: 'saturate(0.9)',
   },
   meta: {
     display: 'flex',
@@ -160,12 +188,26 @@ const styles = {
     margin: '4px 0 0 0',
     maxWidth: '46ch',
   },
+  actions: {
+    display: 'flex',
+    alignItems: 'baseline',
+    gap: 20,
+    marginTop: 8,
+  },
   viewLink: {
     fontFamily: 'var(--font-sans)',
     fontSize: 11,
     letterSpacing: '0.22em',
     textTransform: 'uppercase',
     color: 'rgba(245, 239, 230, 0.55)',
-    marginTop: 8,
+    textDecoration: 'none',
+  },
+  detailsLink: {
+    fontFamily: 'var(--font-sans)',
+    fontSize: 11,
+    letterSpacing: '0.22em',
+    textTransform: 'uppercase',
+    color: 'rgba(245, 239, 230, 0.32)',
+    textDecoration: 'none',
   },
 } satisfies Record<string, CSSProperties>;

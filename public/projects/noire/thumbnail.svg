@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <radialGradient id="n-base" cx="50%" cy="44%" r="72%">
+      <stop offset="0%" stop-color="#13110d"/>
+      <stop offset="58%" stop-color="#080706"/>
+      <stop offset="100%" stop-color="#020201"/>
+    </radialGradient>
+    <radialGradient id="n-spot" cx="50%" cy="42%" r="44%">
+      <stop offset="0%" stop-color="#4a3a1c" stop-opacity="0.55"/>
+      <stop offset="60%" stop-color="#241a0c" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="n-dial" cx="42%" cy="38%" r="68%">
+      <stop offset="0%" stop-color="#1c1812"/>
+      <stop offset="70%" stop-color="#0c0a07"/>
+      <stop offset="100%" stop-color="#050403"/>
+    </radialGradient>
+    <linearGradient id="n-case" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F2D58C"/>
+      <stop offset="38%" stop-color="#B8893A"/>
+      <stop offset="62%" stop-color="#7a5827"/>
+      <stop offset="100%" stop-color="#E8C074"/>
+    </linearGradient>
+    <linearGradient id="n-gleam" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FBEFC9" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#FBEFC9" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="n-vig" cx="50%" cy="44%" r="78%">
+      <stop offset="48%" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.8"/>
+    </radialGradient>
+    <filter id="n-soft" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="14"/>
+    </filter>
+    <filter id="n-grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+  </defs>
+
+  <rect width="800" height="600" fill="url(#n-base)"/>
+  <rect width="800" height="600" fill="url(#n-spot)"/>
+
+  <!-- watch, centred at (400,250) -->
+  <g>
+    <!-- ambient gold halo -->
+    <circle cx="400" cy="250" r="128" fill="#B8893A" opacity="0.16" filter="url(#n-soft)"/>
+    <!-- outer case -->
+    <circle cx="400" cy="250" r="118" fill="none" stroke="url(#n-case)" stroke-width="9"/>
+    <circle cx="400" cy="250" r="108" fill="none" stroke="#000000" stroke-opacity="0.6" stroke-width="1.5"/>
+    <!-- dial -->
+    <circle cx="400" cy="250" r="104" fill="url(#n-dial)"/>
+    <!-- gleam highlight arc on case -->
+    <path d="M 322 178 A 118 118 0 0 1 470 188" fill="none" stroke="url(#n-gleam)" stroke-width="5" stroke-linecap="round"/>
+
+    <!-- hour markers -->
+    <g stroke="#E8C074" stroke-linecap="round">
+      <line x1="400" y1="158" x2="400" y2="176" stroke-width="3"/>
+      <line x1="400" y1="324" x2="400" y2="342" stroke-width="3"/>
+      <line x1="308" y1="250" x2="326" y2="250" stroke-width="3"/>
+      <line x1="474" y1="250" x2="492" y2="250" stroke-width="3"/>
+      <line x1="446" y1="170" x2="438" y2="186" stroke-width="1.6" stroke-opacity="0.85"/>
+      <line x1="480" y1="204" x2="464" y2="212" stroke-width="1.6" stroke-opacity="0.85"/>
+      <line x1="480" y1="296" x2="464" y2="288" stroke-width="1.6" stroke-opacity="0.85"/>
+      <line x1="446" y1="330" x2="438" y2="314" stroke-width="1.6" stroke-opacity="0.85"/>
+      <line x1="354" y1="330" x2="362" y2="314" stroke-width="1.6" stroke-opacity="0.85"/>
+      <line x1="320" y1="296" x2="336" y2="288" stroke-width="1.6" stroke-opacity="0.85"/>
+      <line x1="320" y1="204" x2="336" y2="212" stroke-width="1.6" stroke-opacity="0.85"/>
+      <line x1="354" y1="170" x2="362" y2="186" stroke-width="1.6" stroke-opacity="0.85"/>
+    </g>
+
+    <!-- hands at a classic 10:08 pose -->
+    <line x1="400" y1="250" x2="352" y2="222" stroke="#F5EFE6" stroke-width="4.5" stroke-linecap="round"/>
+    <line x1="400" y1="250" x2="463" y2="214" stroke="#F5EFE6" stroke-width="3" stroke-linecap="round"/>
+    <line x1="400" y1="250" x2="400" y2="304" stroke="#E8C074" stroke-width="1.4" stroke-linecap="round"/>
+    <circle cx="400" cy="250" r="5.5" fill="#E8C074"/>
+    <circle cx="400" cy="250" r="2" fill="#0c0a07"/>
+  </g>
+
+  <!-- wordmark -->
+  <text x="400" y="430" font-family="'Italiana','Didot','Bodoni MT',serif" font-size="76" letter-spacing="16" text-anchor="middle" fill="#F5EFE6">NOIRE</text>
+  <text x="400" y="466" font-family="'DM Sans',Arial,sans-serif" font-size="12.5" letter-spacing="6.5" text-anchor="middle" fill="#E8C074" fill-opacity="0.72">HOROLOGY · PRECISION · TIME</text>
+  <rect x="384" y="490" width="32" height="1.5" fill="#B8893A"/>
+
+  <rect width="800" height="600" fill="url(#n-vig)"/>
+  <rect width="800" height="600" filter="url(#n-grain)" opacity="0.05"/>
+</svg>
