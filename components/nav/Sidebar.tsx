@@ -3,12 +3,17 @@ import NavLink from '@/components/nav/NavLink';
 import SocialLinks from '@/components/nav/SocialLinks';
 import ThemeToggle from '@/components/nav/ThemeToggle';
 import { NAV_ITEMS } from '@/components/nav/items';
+import SearchButton from '@/components/search/SearchButton';
 
 export default function Sidebar() {
   return (
     <aside className="fixed inset-y-0 left-0 z-40 hidden w-60 flex-col border-r border-border bg-bg lg:flex">
       <div className="flex h-16 shrink-0 items-center border-b border-border px-5">
         <Brand />
+      </div>
+
+      <div className="px-3 pt-3">
+        <SearchButton variant="sidebar" />
       </div>
 
       <nav

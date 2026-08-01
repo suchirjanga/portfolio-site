@@ -9,6 +9,9 @@ export type PostMeta = {
   featured?: boolean;
   /** Mono glyph used by CoverArt when the post has no cover image. */
   symbol?: string;
+  /** Optional cover image path (public/) — takes precedence over symbol. */
+  cover?: string;
+  draft?: boolean;
 };
 
 export type NoteMeta = {

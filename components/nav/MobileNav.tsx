@@ -8,6 +8,7 @@ import SocialLinks from '@/components/nav/SocialLinks';
 import ThemeToggle from '@/components/nav/ThemeToggle';
 import { CloseIcon, MenuIcon } from '@/components/nav/icons';
 import { NAV_ITEMS } from '@/components/nav/items';
+import SearchButton from '@/components/search/SearchButton';
 import { cn } from '@/lib/cn';
 
 /*
@@ -49,16 +50,19 @@ export default function MobileNav() {
     <>
       <header className="fixed inset-x-0 top-0 z-40 flex h-14 items-center justify-between border-b border-border bg-bg/85 px-4 backdrop-blur lg:hidden">
         <Brand />
-        <button
-          type="button"
-          onClick={() => setOpenedOn(pathname)}
-          aria-label="Open navigation"
-          aria-expanded={open}
-          aria-controls="mobile-drawer"
-          className="rounded-btn p-2 text-ink-muted transition-colors duration-200 hover:bg-surface-raised hover:text-ink"
-        >
-          <MenuIcon className="size-5" />
-        </button>
+        <div className="flex items-center gap-1">
+          <SearchButton variant="icon" />
+          <button
+            type="button"
+            onClick={() => setOpenedOn(pathname)}
+            aria-label="Open navigation"
+            aria-expanded={open}
+            aria-controls="mobile-drawer"
+            className="rounded-btn p-2 text-ink-muted transition-colors duration-200 hover:bg-surface-raised hover:text-ink"
+          >
+            <MenuIcon className="size-5" />
+          </button>
+        </div>
       </header>
 
       <div

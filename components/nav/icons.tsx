@@ -77,6 +77,15 @@ export function ContactIcon({ className }: IconProps) {
   );
 }
 
+export function SearchIcon({ className }: IconProps) {
+  return (
+    <StrokeIcon className={className}>
+      <circle cx="11" cy="11" r="7" />
+      <path d="m20 20-4.2-4.2" />
+    </StrokeIcon>
+  );
+}
+
 export function MenuIcon({ className }: IconProps) {
   return (
     <StrokeIcon className={className}>

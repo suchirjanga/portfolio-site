@@ -11,7 +11,7 @@ type Props = {
 
 export default function FeaturedArticleCard({ post }: Props) {
   return (
-    <Link href="/blog" className="block">
+    <Link href={`/blog/${post.slug}`} className="block">
       <Card interactive flush className="grid md:grid-cols-2">
         <CoverArt symbol={post.symbol} className="min-h-56 md:min-h-full" />
         <div className="flex flex-col gap-4 p-6 md:p-8">

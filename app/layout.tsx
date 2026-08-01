@@ -4,6 +4,7 @@ import { GeistMono } from 'geist/font/mono';
 import Footer from '@/components/Footer';
 import MobileNav from '@/components/nav/MobileNav';
 import Sidebar from '@/components/nav/Sidebar';
+import SearchDialog from '@/components/search/SearchDialog';
 import { siteConfig } from '@/lib/site';
 import './globals.css';
 
@@ -40,6 +41,7 @@ export default function RootLayout({
         </a>
         <Sidebar />
         <MobileNav />
+        <SearchDialog />
         <div id="content" className="pt-14 lg:pt-0 lg:pl-60">
           {children}
           <Footer />

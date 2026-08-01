@@ -1,0 +1,66 @@
+---
+title: "Building This Site in Public"
+description: "Why I rebuilt my portfolio as a writing-first developer platform — the stack, the trade-offs, and what's coming next."
+date: "2026-08-01"
+tags:
+  - Meta
+  - Next.js
+featured: true
+symbol: "</>"
+draft: false
+---
+
+This site used to be a portfolio in the classic sense: a hero, three
+projects, a contact link. It did its job, but it had nowhere to put the
+thing I actually want to do more of — writing down what I learn while
+building.
+
+So I rebuilt it as a platform: blog, projects, and learning notes in one
+place, with a design system instead of one-off pages.
+
+## The stack
+
+The old site was a Vite + React single-page app. It was fast to build and
+fast to load, but a client-rendered blog is invisible to search engines
+and awkward to share. The rebuild is:
+
+- **Next.js App Router** — static rendering for every article
+- **TypeScript** end to end
+- **Tailwind CSS v4** — the whole theme is ~30 CSS variables
+- **MDX** — articles are files in a `content/` folder, with components
+  when I need them
+- **Decap CMS** — so publishing doesn't require touching git
+
+The design tokens live in one place. This is the entire dark theme:
+
+```css
+@theme {
+  --color-bg: #090909;
+  --color-surface: #101010;
+  --color-ink: #f5efe6;
+  --color-gold: #e2b64f;
+  /* ...borders, radii, fonts */
+}
+```
+
+<Callout type="tip">
+  If a design system fits in one screen of CSS variables, changing your
+  mind later is cheap. That constraint shaped most of this redesign.
+</Callout>
+
+## What stayed
+
+The parts of the old site that felt like mine survived: the warm
+off-white ink, the gold accent, the projects, and the general rule that
+nothing should glow, bounce, or parallax without a reason.
+
+## What's next
+
+The plan from here, roughly in order:
+
+1. More DSA and system-design notes — short ones, not essays
+2. A proper write-up of the health-data pipeline in Forge
+3. RSS, so you can subscribe without an algorithm in between
+
+If you're reading this, the rebuild shipped. The code is on
+[GitHub](https://github.com/suchirjanga), and the writing lives here now.
