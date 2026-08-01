@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { GeistSans } from 'geist/font/sans';
 import { GeistMono } from 'geist/font/mono';
+import Footer from '@/components/Footer';
 import MobileNav from '@/components/nav/MobileNav';
 import Sidebar from '@/components/nav/Sidebar';
 import { siteConfig } from '@/lib/site';
@@ -41,6 +42,7 @@ export default function RootLayout({
         <MobileNav />
         <div id="content" className="pt-14 lg:pt-0 lg:pl-60">
           {children}
+          <Footer />
         </div>
       </body>
     </html>
