@@ -154,6 +154,7 @@ export default function SearchDialog() {
             ref={inputRef}
             value={query}
             onChange={(e) => runSearch(e.target.value)}
+            aria-label="Search articles, notes, and projects"
             placeholder="Search articles, notes, projects…"
             className="h-12 w-full bg-transparent text-[0.95rem] text-ink outline-none placeholder:text-ink-faint"
           />

@@ -8,6 +8,8 @@ import { getSettings } from '@/lib/settings';
 
 export const metadata = {
   title: 'Resume',
+  description:
+    'Experience, education, and skills — B.Tech CSE student building and shipping full products end to end.',
   alternates: { canonical: '/resume' },
 };
 

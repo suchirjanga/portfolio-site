@@ -15,6 +15,11 @@ const prettyCodeOptions: PrettyCodeOptions = {
 
 const components = {
   Callout,
+  // Markdown images: lazy + async decode by default; alt comes from the
+  // author's ![alt](src) text.
+  img: (props: React.ComponentPropsWithoutRef<'img'>) => (
+    <img loading="lazy" decoding="async" {...props} />
+  ),
 };
 
 /** Server component: compiles MDX source with GFM, heading ids, and shiki. */

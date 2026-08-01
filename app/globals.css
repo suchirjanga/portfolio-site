@@ -21,7 +21,8 @@
   /* Ink */
   --color-ink: #f5efe6;
   --color-ink-muted: rgb(245 239 230 / 0.64);
-  --color-ink-faint: rgb(245 239 230 / 0.4);
+  /* 0.5 keeps ~4.9:1 on --color-bg (WCAG AA for small text). */
+  --color-ink-faint: rgb(245 239 230 / 0.5);
 
   /* Accent */
   --color-gold: #e2b64f;
@@ -61,7 +62,8 @@
 
   --color-ink: #1b1611;
   --color-ink-muted: rgb(27 22 17 / 0.7);
-  --color-ink-faint: rgb(27 22 17 / 0.45);
+  /* 0.62 keeps ~4.7:1 on the light --color-bg (WCAG AA). */
+  --color-ink-faint: rgb(27 22 17 / 0.62);
 
   --color-gold: #8f6b17;
   --color-gold-bright: #74560f;

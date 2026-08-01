@@ -5,6 +5,8 @@ import { getContactPage } from '@/lib/pages';
 
 export const metadata = {
   title: 'Contact',
+  description:
+    'Get in touch — open to selective freelance and full-time work.',
   alternates: { canonical: '/contact' },
 };
 
