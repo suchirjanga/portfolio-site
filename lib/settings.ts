@@ -35,7 +35,7 @@ export type SiteSettings = {
 };
 
 const DEFAULTS: SiteSettings = {
-  siteUrl: 'https://sjanga.com',
+  siteUrl: 'https://www.sjanga.com',
   siteTitle: siteConfig.name,
   handle: siteConfig.handle,
   tagline: 'Building in public',
