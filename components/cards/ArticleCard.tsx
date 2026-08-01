@@ -24,7 +24,7 @@ export default function ArticleCard({ post, withCover = false }: Props) {
         {post.title}
       </h3>
       <p className="line-clamp-3 text-sm leading-relaxed text-ink-muted">
-        {post.description}
+        {post.excerpt || post.description}
       </p>
       <div className="mt-auto flex items-center gap-3 pt-2 font-mono text-xs text-ink-faint">
         <span>{formatDate(post.date)}</span>

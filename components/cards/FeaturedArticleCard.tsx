@@ -24,7 +24,9 @@ export default function FeaturedArticleCard({ post }: Props) {
           <h3 className="text-2xl font-semibold tracking-tight text-balance md:text-3xl">
             {post.title}
           </h3>
-          <p className="leading-relaxed text-ink-muted">{post.description}</p>
+          <p className="leading-relaxed text-ink-muted">
+            {post.excerpt || post.description}
+          </p>
           <div className="flex items-center gap-3 font-mono text-xs text-ink-faint">
             <span>{formatDate(post.date)}</span>
             <span aria-hidden>·</span>

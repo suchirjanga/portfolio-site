@@ -11,6 +11,15 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  async rewrites() {
+    return [
+      // Decap CMS admin (static app in public/admin).
+      {
+        source: '/admin',
+        destination: '/admin/index.html',
+      },
+    ];
+  },
 };
 
 export default nextConfig;

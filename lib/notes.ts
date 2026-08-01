@@ -12,7 +12,12 @@ type NoteFrontmatter = {
   category: string;
   /** YAML parses unquoted dates to Date objects — accept both. */
   date: string | Date;
+  lastUpdated?: string | Date;
+  tags?: string[];
+  cover?: string;
+  featured?: boolean;
   draft?: boolean;
+  hidden?: boolean;
   slug?: string;
 };
 
@@ -32,8 +37,13 @@ function parseNote(filename: string, raw: string): Note {
     summary: attrs.summary ?? '',
     category: attrs.category,
     date: toIsoDate(attrs.date),
+    lastUpdated: attrs.lastUpdated ? toIsoDate(attrs.lastUpdated) : undefined,
     readingMinutes: readingMinutes(parsed.body),
+    tags: attrs.tags,
+    cover: attrs.cover,
+    featured: attrs.featured,
     draft: attrs.draft,
+    hidden: attrs.hidden,
     body: parsed.body,
   };
 }
@@ -47,7 +57,7 @@ export function getAllNotes(): Note[] {
       .readdirSync(NOTES_DIR)
       .filter((f) => /\.mdx?$/.test(f))
       .map((f) => parseNote(f, fs.readFileSync(path.join(NOTES_DIR, f), 'utf8')))
-      .filter((n) => !n.draft)
+      .filter((n) => !n.draft && !n.hidden)
       .sort((a, b) => b.date.localeCompare(a.date));
   }
   return cache;

@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Brand from '@/components/nav/Brand';
 import Container from '@/components/ui/Container';
-import { siteConfig } from '@/lib/site';
+import { getSettings } from '@/lib/settings';
 
 const PAGES = [
   { label: 'Home', href: '/' },
@@ -16,15 +16,16 @@ const MORE = [
 ] as const;
 
 export default function Footer() {
+  const settings = getSettings();
+
   return (
     <footer className="mt-16 border-t border-border">
       <Container className="flex flex-col gap-10 py-12">
         <div className="flex flex-wrap items-start justify-between gap-10">
           <div className="flex max-w-xs flex-col gap-4">
-            <Brand />
+            <Brand handle={settings.handle} />
             <p className="text-sm leading-relaxed text-ink-muted">
-              Building in public — sharing what I learn about code, systems,
-              and everything in between.
+              {settings.footerText}
             </p>
           </div>
 
@@ -57,7 +58,7 @@ export default function Footer() {
                 </Link>
               ))}
               <a
-                href={siteConfig.github}
+                href={settings.github}
                 target="_blank"
                 rel="noreferrer"
                 className="text-sm text-ink-muted transition-colors duration-200 hover:text-ink"
@@ -65,7 +66,7 @@ export default function Footer() {
                 GitHub
               </a>
               <a
-                href={siteConfig.linkedin}
+                href={settings.linkedin}
                 target="_blank"
                 rel="noreferrer"
                 className="text-sm text-ink-muted transition-colors duration-200 hover:text-ink"
@@ -78,9 +79,9 @@ export default function Footer() {
 
         <div className="flex flex-wrap items-center justify-between gap-4 border-t border-border pt-6 font-mono text-xs text-ink-faint">
           <span>
-            © {new Date().getFullYear()} {siteConfig.name}
+            © {new Date().getFullYear()} {settings.siteTitle}
           </span>
-          <span>Built with restraint.</span>
+          <span>{settings.copyrightText}</span>
         </div>
       </Container>
     </footer>

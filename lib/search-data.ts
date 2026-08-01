@@ -1,10 +1,11 @@
 import { getAllNotes } from '@/lib/notes';
+import { getAboutPage, getResumePage } from '@/lib/pages';
 import { getAllPosts } from '@/lib/posts';
 import { getProjects } from '@/lib/projects';
 
 export type SearchDoc = {
   id: string;
-  type: 'article' | 'note' | 'project';
+  type: 'article' | 'note' | 'project' | 'page';
   title: string;
   description: string;
   body: string;
@@ -45,5 +46,38 @@ export function buildSearchDocs(): SearchDoc[] {
     url: `/projects/${p.slug}`,
   }));
 
-  return [...posts, ...notes, ...projects];
+  const about = getAboutPage();
+  const resume = getResumePage();
+  const pages: SearchDoc[] = [
+    {
+      id: 'page:about',
+      type: 'page',
+      title: 'About',
+      description: about.headline,
+      body: [about.body, ...about.skills, ...about.techStack].join(' '),
+      tags: 'about bio',
+      url: '/#about',
+    },
+    {
+      id: 'page:resume',
+      type: 'page',
+      title: 'Resume',
+      description: resume.summary,
+      body: [
+        ...resume.experience.flatMap((e) => [
+          e.role,
+          e.organization,
+          ...(e.details ?? []),
+        ]),
+        ...resume.education.map((e) => `${e.degree} ${e.institution}`),
+        ...resume.skills,
+        ...resume.certifications,
+        ...resume.achievements,
+      ].join(' '),
+      tags: 'resume cv experience education',
+      url: '/resume',
+    },
+  ];
+
+  return [...posts, ...notes, ...projects, ...pages];
 }

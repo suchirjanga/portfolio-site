@@ -10,7 +10,7 @@ export const OPEN_SEARCH_EVENT = 'sjanga:search-open';
 
 type Doc = {
   id: string;
-  type: 'article' | 'note' | 'project';
+  type: 'article' | 'note' | 'project' | 'page';
   title: string;
   description: string;
   url: string;
@@ -22,9 +22,10 @@ const TYPE_LABEL: Record<Doc['type'], string> = {
   article: 'Articles',
   note: 'Notes',
   project: 'Projects',
+  page: 'Pages',
 };
 
-const TYPE_ORDER: Doc['type'][] = ['article', 'note', 'project'];
+const TYPE_ORDER: Doc['type'][] = ['article', 'note', 'project', 'page'];
 
 // Index is built once per session, lazily on first open.
 let indexPromise: Promise<MiniSearch<Doc>> | null = null;

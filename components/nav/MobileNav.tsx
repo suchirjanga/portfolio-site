@@ -18,7 +18,14 @@ import { cn } from '@/lib/cn';
   their exit but were never removed, leaving a full-screen z-50 backdrop
   swallowing every tap), so exit-based Framer patterns are avoided here.
 */
-export default function MobileNav() {
+type Props = {
+  /** CMS-managed values passed from the server layout. */
+  handle?: string;
+  github?: string;
+  linkedin?: string;
+};
+
+export default function MobileNav({ handle, github, linkedin }: Props) {
   const pathname = usePathname();
   // The drawer is open only on the route it was opened on, so navigating
   // (links, back button) closes it without any effect-driven state sync.
@@ -49,7 +56,7 @@ export default function MobileNav() {
   return (
     <>
       <header className="fixed inset-x-0 top-0 z-40 flex h-14 items-center justify-between border-b border-border bg-bg/85 px-4 backdrop-blur lg:hidden">
-        <Brand />
+        <Brand handle={handle} />
         <div className="flex items-center gap-1">
           <SearchButton variant="icon" />
           <button
@@ -86,7 +93,7 @@ export default function MobileNav() {
         )}
       >
         <div className="flex h-14 shrink-0 items-center justify-between border-b border-border px-4">
-          <Brand onNavigate={close} />
+          <Brand onNavigate={close} handle={handle} />
           <button
             type="button"
             onClick={close}
@@ -107,7 +114,7 @@ export default function MobileNav() {
         </nav>
 
         <div className="flex shrink-0 items-center justify-between border-t border-border p-3">
-          <SocialLinks />
+          <SocialLinks github={github} linkedin={linkedin} />
           <ThemeToggle />
         </div>
       </aside>

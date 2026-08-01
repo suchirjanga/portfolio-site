@@ -1,7 +1,13 @@
 import Link from 'next/link';
 import { siteConfig } from '@/lib/site';
 
-export default function Brand({ onNavigate }: { onNavigate?: () => void }) {
+type Props = {
+  onNavigate?: () => void;
+  /** Brand wordmark — CMS-managed via Site Settings; static fallback. */
+  handle?: string;
+};
+
+export default function Brand({ onNavigate, handle = siteConfig.handle }: Props) {
   return (
     <Link
       href="/"
@@ -13,7 +19,7 @@ export default function Brand({ onNavigate }: { onNavigate?: () => void }) {
         {'</>'}
       </span>
       <span className="text-sm font-semibold tracking-[0.18em] text-ink">
-        {siteConfig.handle}
+        {handle}
       </span>
     </Link>
   );

@@ -5,16 +5,20 @@ import Footer from '@/components/Footer';
 import MobileNav from '@/components/nav/MobileNav';
 import Sidebar from '@/components/nav/Sidebar';
 import SearchDialog from '@/components/search/SearchDialog';
-import { siteConfig } from '@/lib/site';
+import { getSettings } from '@/lib/settings';
 import './globals.css';
 
-export const metadata: Metadata = {
-  title: {
-    default: siteConfig.name,
-    template: `%s — ${siteConfig.name}`,
-  },
-  description: siteConfig.description,
-};
+export function generateMetadata(): Metadata {
+  const settings = getSettings();
+  const title = settings.seoTitle || settings.siteTitle;
+  return {
+    title: {
+      default: title,
+      template: `%s — ${settings.siteTitle}`,
+    },
+    description: settings.seoDescription || settings.description,
+  };
+}
 
 // Applies a stored light-theme preference before first paint (dark is the
 // default and needs no attribute).
@@ -23,6 +27,8 @@ const themeInit = `(function(){try{if(localStorage.getItem('theme')==='light'){d
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const settings = getSettings();
+
   return (
     <html
       lang="en"
@@ -40,7 +46,11 @@ export default function RootLayout({
           Skip to content
         </a>
         <Sidebar />
-        <MobileNav />
+        <MobileNav
+          handle={settings.handle}
+          github={settings.github}
+          linkedin={settings.linkedin}
+        />
         <SearchDialog />
         <div id="content" className="pt-14 lg:pt-0 lg:pl-60">
           {children}

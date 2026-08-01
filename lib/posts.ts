@@ -9,13 +9,17 @@ export type Post = PostMeta & { body: string };
 type PostFrontmatter = {
   title: string;
   description?: string;
+  excerpt?: string;
   /** YAML parses unquoted dates to Date objects — accept both. */
   date: string | Date;
+  lastUpdated?: string | Date;
+  author?: string;
   tags?: string[];
   featured?: boolean;
   symbol?: string;
   cover?: string;
   draft?: boolean;
+  hidden?: boolean;
   slug?: string;
 };
 
@@ -33,13 +37,17 @@ function parsePost(filename: string, raw: string): Post {
     slug: attrs.slug ?? filename.replace(/\.mdx?$/, ''),
     title: attrs.title,
     description: attrs.description ?? '',
+    excerpt: attrs.excerpt,
     date: toIsoDate(attrs.date),
+    lastUpdated: attrs.lastUpdated ? toIsoDate(attrs.lastUpdated) : undefined,
+    author: attrs.author,
     readingMinutes: readingMinutes(parsed.body),
     tags: attrs.tags ?? [],
     featured: attrs.featured,
     symbol: attrs.symbol,
     cover: attrs.cover,
     draft: attrs.draft,
+    hidden: attrs.hidden,
     body: parsed.body,
   };
 }
@@ -53,7 +61,7 @@ export function getAllPosts(): Post[] {
       .readdirSync(BLOG_DIR)
       .filter((f) => /\.mdx?$/.test(f))
       .map((f) => parsePost(f, fs.readFileSync(path.join(BLOG_DIR, f), 'utf8')))
-      .filter((p) => !p.draft)
+      .filter((p) => !p.draft && !p.hidden)
       .sort((a, b) => b.date.localeCompare(a.date));
   }
   return cache;

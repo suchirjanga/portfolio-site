@@ -16,6 +16,7 @@ import {
   getPost,
   getRelatedPosts,
 } from '@/lib/posts';
+import { getSettings } from '@/lib/settings';
 import { extractToc } from '@/lib/toc';
 
 type Params = { slug: string };
@@ -76,10 +77,18 @@ export default async function ArticlePage({
                 <p className="max-w-2xl text-lg leading-relaxed text-ink-muted">
                   {post.description}
                 </p>
-                <div className="flex items-center gap-3 font-mono text-xs text-ink-faint">
+                <div className="flex flex-wrap items-center gap-3 font-mono text-xs text-ink-faint">
+                  <span>By {post.author ?? getSettings().defaultAuthor}</span>
+                  <span aria-hidden>·</span>
                   <span>{formatDate(post.date)}</span>
                   <span aria-hidden>·</span>
                   <span>{post.readingMinutes} min read</span>
+                  {post.lastUpdated && (
+                    <>
+                      <span aria-hidden>·</span>
+                      <span>Updated {formatDate(post.lastUpdated)}</span>
+                    </>
+                  )}
                 </div>
               </header>
 

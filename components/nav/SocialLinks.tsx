@@ -1,11 +1,20 @@
 import { GitHubIcon, LinkedInIcon } from '@/components/nav/icons';
 import { siteConfig } from '@/lib/site';
 
-export default function SocialLinks() {
+type Props = {
+  /** CMS-managed via Site Settings; static fallbacks keep clients safe. */
+  github?: string;
+  linkedin?: string;
+};
+
+export default function SocialLinks({
+  github = siteConfig.github,
+  linkedin = siteConfig.linkedin,
+}: Props) {
   return (
     <div className="flex items-center gap-1">
       <a
-        href={siteConfig.github}
+        href={github}
         target="_blank"
         rel="noreferrer"
         aria-label="GitHub"
@@ -14,7 +23,7 @@ export default function SocialLinks() {
         <GitHubIcon className="size-4.5" />
       </a>
       <a
-        href={siteConfig.linkedin}
+        href={linkedin}
         target="_blank"
         rel="noreferrer"
         aria-label="LinkedIn"

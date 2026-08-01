@@ -53,8 +53,10 @@ export default async function NotePage({
             </Link>
             <div className="flex flex-wrap items-center gap-3">
               <Badge tone="gold">{note.category}</Badge>
+              {note.tags?.map((tag) => <Badge key={tag}>{tag}</Badge>)}
               <span className="font-mono text-xs text-ink-faint">
                 {formatDate(note.date)} · {note.readingMinutes} min
+                {note.lastUpdated && ` · Updated ${formatDate(note.lastUpdated)}`}
               </span>
             </div>
             <h1 className="text-3xl font-semibold tracking-tight text-balance md:text-4xl">
@@ -66,6 +68,14 @@ export default async function NotePage({
               </p>
             )}
           </header>
+
+          {note.cover && (
+            <img
+              src={note.cover}
+              alt=""
+              className="mt-8 aspect-[21/9] w-full rounded-card border border-border object-cover"
+            />
+          )}
 
           <div className="mt-8">
             <MdxContent source={note.body} />

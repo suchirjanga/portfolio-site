@@ -49,8 +49,14 @@ export default async function ProjectPage({
             </Link>
             <div className="flex flex-wrap items-center gap-3">
               <Badge tone="gold">{project.role}</Badge>
+              {project.status !== 'shipped' && (
+                <Badge>
+                  {project.status === 'in-progress' ? 'In progress' : 'Archived'}
+                </Badge>
+              )}
               <span className="font-mono text-xs text-ink-faint">
                 {project.year}
+                {project.projectType && ` · ${project.projectType}`}
               </span>
             </div>
             <h1 className="text-3xl font-semibold tracking-tight text-balance md:text-5xl md:leading-[1.1]">
@@ -89,6 +95,20 @@ export default async function ProjectPage({
           <div className="mt-10">
             <MdxContent source={project.body} />
           </div>
+
+          {project.gallery.length > 0 && (
+            <div className="mt-10 grid gap-4 sm:grid-cols-2">
+              {project.gallery.map((image) => (
+                <img
+                  key={image}
+                  src={image}
+                  alt=""
+                  loading="lazy"
+                  className="w-full rounded-card border border-border object-cover"
+                />
+              ))}
+            </div>
+          )}
 
           <footer className="mt-14 border-t border-border pt-8">
             <Link
