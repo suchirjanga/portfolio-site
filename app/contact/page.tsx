@@ -5,6 +5,7 @@ import { getContactPage } from '@/lib/pages';
 
 export const metadata = {
   title: 'Contact',
+  alternates: { canonical: '/contact' },
 };
 
 export default function ContactPage() {

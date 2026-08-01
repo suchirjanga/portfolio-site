@@ -8,6 +8,7 @@ import { getSettings } from '@/lib/settings';
 
 export const metadata = {
   title: 'Resume',
+  alternates: { canonical: '/resume' },
 };
 
 function SubHeading({ children }: { children: React.ReactNode }) {

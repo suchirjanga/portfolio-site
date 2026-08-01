@@ -8,6 +8,7 @@ import { siteConfig } from '@/lib/site';
  * Server-only (fs): pass values to client components as props.
  */
 export type SiteSettings = {
+  siteUrl: string;
   siteTitle: string;
   handle: string;
   tagline: string;
@@ -34,6 +35,7 @@ export type SiteSettings = {
 };
 
 const DEFAULTS: SiteSettings = {
+  siteUrl: 'https://sjanga.com',
   siteTitle: siteConfig.name,
   handle: siteConfig.handle,
   tagline: 'Building in public',

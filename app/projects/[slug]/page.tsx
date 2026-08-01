@@ -6,6 +6,7 @@ import Badge from '@/components/ui/Badge';
 import Button from '@/components/ui/Button';
 import Container from '@/components/ui/Container';
 import { getProject, getProjects } from '@/lib/projects';
+import { ogImageUrl } from '@/lib/seo';
 
 type Params = { slug: string };
 
@@ -21,9 +22,25 @@ export async function generateMetadata({
   const { slug } = await params;
   const project = getProject(slug);
   if (!project) return {};
+  const url = `/projects/${project.slug}`;
+  const image = ogImageUrl(project.title, project.tech.slice(0, 4).join(' · '));
   return {
     title: project.title,
     description: project.description,
+    alternates: { canonical: url },
+    openGraph: {
+      type: 'website',
+      url,
+      title: project.title,
+      description: project.description,
+      images: [image],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: project.title,
+      description: project.description,
+      images: [image],
+    },
   };
 }
 

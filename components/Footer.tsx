@@ -73,6 +73,12 @@ export default function Footer() {
               >
                 LinkedIn
               </a>
+              <a
+                href="/feed.xml"
+                className="link-underline w-fit text-sm text-ink-muted transition-colors duration-200 hover:text-ink"
+              >
+                RSS
+              </a>
             </nav>
           </div>
         </div>

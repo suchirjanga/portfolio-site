@@ -14,6 +14,10 @@ import { getAllPosts } from '@/lib/posts';
 import { getProjects } from '@/lib/projects';
 import { getSettings } from '@/lib/settings';
 
+export const metadata = {
+  alternates: { canonical: '/' },
+};
+
 export default function HomePage() {
   const settings = getSettings();
   const about = getAboutPage();

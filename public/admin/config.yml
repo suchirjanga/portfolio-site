@@ -245,6 +245,7 @@ collections:
         media_folder: /public/images/site
         public_folder: /images/site
         fields:
+          - { name: siteUrl, label: Site URL, widget: string, hint: "Canonical origin, e.g. https://sjanga.com — used for SEO, RSS, and sitemap." }
           - { name: siteTitle, label: Site Title, widget: string }
           - { name: handle, label: Brand Handle, widget: string, hint: "Wordmark in the sidebar, e.g. SJANGA." }
           - { name: tagline, label: Tagline, widget: string }

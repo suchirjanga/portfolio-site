@@ -16,6 +16,8 @@ import {
   getPost,
   getRelatedPosts,
 } from '@/lib/posts';
+import JsonLd from '@/components/seo/JsonLd';
+import { absoluteUrl, ogImageUrl } from '@/lib/seo';
 import { getSettings } from '@/lib/settings';
 import { extractToc } from '@/lib/toc';
 
@@ -33,9 +35,30 @@ export async function generateMetadata({
   const { slug } = await params;
   const post = getPost(slug);
   if (!post) return {};
+  const url = `/blog/${post.slug}`;
+  const image =
+    post.cover || ogImageUrl(post.title, post.tags.join(' · '));
   return {
     title: post.title,
     description: post.description,
+    alternates: { canonical: url },
+    openGraph: {
+      type: 'article',
+      url,
+      title: post.title,
+      description: post.description,
+      publishedTime: post.date,
+      modifiedTime: post.lastUpdated ?? post.date,
+      authors: [post.author ?? getSettings().defaultAuthor],
+      tags: post.tags,
+      images: [image],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description: post.description,
+      images: [image],
+    },
   };
 }
 
@@ -52,8 +75,30 @@ export default async function ArticlePage({
   const { newer, older } = getAdjacentPosts(slug);
   const related = getRelatedPosts(post);
 
+  const settings = getSettings();
+
   return (
     <>
+      <JsonLd
+        data={{
+          '@context': 'https://schema.org',
+          '@type': 'BlogPosting',
+          headline: post.title,
+          description: post.description,
+          datePublished: post.date,
+          dateModified: post.lastUpdated ?? post.date,
+          author: {
+            '@type': 'Person',
+            name: post.author ?? settings.defaultAuthor,
+            url: settings.siteUrl,
+          },
+          image: absoluteUrl(
+            post.cover || ogImageUrl(post.title, post.tags.join(' · ')),
+          ),
+          keywords: post.tags.join(', '),
+          mainEntityOfPage: absoluteUrl(`/blog/${post.slug}`),
+        }}
+      />
       <ReadingProgress />
       <main>
         <Container className="py-12 md:py-16">

@@ -5,18 +5,37 @@ import Footer from '@/components/Footer';
 import MobileNav from '@/components/nav/MobileNav';
 import Sidebar from '@/components/nav/Sidebar';
 import SearchDialog from '@/components/search/SearchDialog';
+import JsonLd from '@/components/seo/JsonLd';
+import { ogImageUrl } from '@/lib/seo';
 import { getSettings } from '@/lib/settings';
 import './globals.css';
 
 export function generateMetadata(): Metadata {
   const settings = getSettings();
   const title = settings.seoTitle || settings.siteTitle;
+  const description = settings.seoDescription || settings.description;
   return {
+    metadataBase: new URL(settings.siteUrl),
     title: {
       default: title,
       template: `%s — ${settings.siteTitle}`,
     },
-    description: settings.seoDescription || settings.description,
+    description,
+    icons: settings.favicon || '/favicon.svg',
+    alternates: {
+      types: { 'application/rss+xml': '/feed.xml' },
+    },
+    openGraph: {
+      type: 'website',
+      siteName: settings.siteTitle,
+      title,
+      description,
+      images: [settings.ogImage || ogImageUrl(title, settings.tagline)],
+    },
+    twitter: {
+      card: 'summary_large_image',
+    },
+    robots: { index: true, follow: true },
   };
 }
 
@@ -37,6 +56,29 @@ export default function RootLayout({
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInit }} />
+        <JsonLd
+          data={{
+            '@context': 'https://schema.org',
+            '@graph': [
+              {
+                '@type': 'Person',
+                '@id': `${settings.siteUrl}/#person`,
+                name: settings.siteTitle,
+                url: settings.siteUrl,
+                email: settings.email,
+                sameAs: [settings.github, settings.linkedin].filter(Boolean),
+              },
+              {
+                '@type': 'WebSite',
+                '@id': `${settings.siteUrl}/#website`,
+                name: settings.siteTitle,
+                description: settings.description,
+                url: settings.siteUrl,
+                publisher: { '@id': `${settings.siteUrl}/#person` },
+              },
+            ],
+          }}
+        />
       </head>
       <body>
         <a

@@ -7,6 +7,7 @@ export const metadata = {
   title: 'Notes',
   description:
     'Short learning notes — DSA patterns, AI, system design, and backend cheat sheets.',
+  alternates: { canonical: '/notes' },
 };
 
 export default function NotesPage() {

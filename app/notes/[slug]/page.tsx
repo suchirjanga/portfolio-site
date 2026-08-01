@@ -2,10 +2,13 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import MdxContent from '@/components/mdx/MdxContent';
+import JsonLd from '@/components/seo/JsonLd';
 import Badge from '@/components/ui/Badge';
 import Container from '@/components/ui/Container';
 import { formatDate } from '@/lib/format';
 import { getAllNotes, getNote } from '@/lib/notes';
+import { absoluteUrl, ogImageUrl } from '@/lib/seo';
+import { getSettings } from '@/lib/settings';
 
 type Params = { slug: string };
 
@@ -21,9 +24,28 @@ export async function generateMetadata({
   const { slug } = await params;
   const note = getNote(slug);
   if (!note) return {};
+  const url = `/notes/${note.slug}`;
+  const image = note.cover || ogImageUrl(note.title, note.category);
   return {
     title: note.title,
     description: note.summary,
+    alternates: { canonical: url },
+    openGraph: {
+      type: 'article',
+      url,
+      title: note.title,
+      description: note.summary,
+      publishedTime: note.date,
+      modifiedTime: note.lastUpdated ?? note.date,
+      tags: [note.category, ...(note.tags ?? [])],
+      images: [image],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: note.title,
+      description: note.summary,
+      images: [image],
+    },
   };
 }
 
@@ -42,6 +64,24 @@ export default async function NotePage({
 
   return (
     <main>
+      <JsonLd
+        data={{
+          '@context': 'https://schema.org',
+          '@type': 'TechArticle',
+          headline: note.title,
+          description: note.summary,
+          datePublished: note.date,
+          dateModified: note.lastUpdated ?? note.date,
+          author: {
+            '@type': 'Person',
+            name: getSettings().defaultAuthor,
+            url: getSettings().siteUrl,
+          },
+          image: absoluteUrl(note.cover || ogImageUrl(note.title, note.category)),
+          keywords: [note.category, ...(note.tags ?? [])].join(', '),
+          mainEntityOfPage: absoluteUrl(`/notes/${note.slug}`),
+        }}
+      />
       <Container className="max-w-3xl py-12 md:py-16">
         <article>
           <header className="flex flex-col gap-4">

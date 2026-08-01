@@ -7,6 +7,7 @@ export const metadata = {
   title: 'Blog',
   description:
     'In-depth articles on software development, AI, system design, and the things I learn while building.',
+  alternates: { canonical: '/blog' },
 };
 
 export default function BlogPage() {
