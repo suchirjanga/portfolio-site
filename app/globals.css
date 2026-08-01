@@ -43,6 +43,32 @@
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/*
+  Light theme — applied when the toggle sets data-theme="light".
+  Dark is the default; these overrides keep the same warm identity
+  (paper-toned surfaces, darkened gold for contrast).
+*/
+:root[data-theme='light'] {
+  color-scheme: light;
+
+  --color-bg: #faf7f2;
+  --color-surface: #fffdf9;
+  --color-surface-raised: #f1ece2;
+  --color-overlay: rgb(27 22 17 / 0.4);
+
+  --color-border: rgb(27 22 17 / 0.1);
+  --color-border-strong: rgb(27 22 17 / 0.2);
+
+  --color-ink: #1b1611;
+  --color-ink-muted: rgb(27 22 17 / 0.7);
+  --color-ink-faint: rgb(27 22 17 / 0.45);
+
+  --color-gold: #8f6b17;
+  --color-gold-bright: #74560f;
+  --color-gold-deep: #8a6a2c;
+  --color-gold-tint: rgb(143 107 23 / 0.1);
+}
+
 @layer base {
   :root {
     color-scheme: dark;

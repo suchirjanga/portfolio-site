@@ -43,19 +43,21 @@ export default function Button({
 
   if (rest.href !== undefined) {
     const { href, ...linkRest } = rest;
-    const external = /^https?:\/\//.test(href);
-    if (external) {
-      return (
-        <a
-          href={href}
-          target="_blank"
-          rel="noreferrer"
-          className={classes}
-          {...linkRest}
-        />
-      );
+    // Only app-internal paths go through next/link; external URLs and
+    // non-http schemes (mailto:) render a plain anchor.
+    if (href.startsWith('/')) {
+      return <Link href={href} className={classes} {...linkRest} />;
     }
-    return <Link href={href} className={classes} {...linkRest} />;
+    const newTab = /^https?:\/\//.test(href);
+    return (
+      <a
+        href={href}
+        target={newTab ? '_blank' : undefined}
+        rel={newTab ? 'noreferrer' : undefined}
+        className={classes}
+        {...linkRest}
+      />
+    );
   }
 
   return <button type="button" className={classes} {...(rest as AsButton)} />;

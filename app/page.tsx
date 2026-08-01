@@ -15,14 +15,9 @@ export const metadata = {
 export default function DesignSystemPreview() {
   return (
     <main className="pb-24">
-      <div className="border-b border-border">
-        <Container className="flex items-center justify-between py-5">
-          <span className="font-mono text-sm tracking-[0.18em] text-ink">
-            SJANGA
-          </span>
-          <Badge tone="gold">Phase 1 · Design system preview</Badge>
-        </Container>
-      </div>
+      <Container className="pt-8">
+        <Badge tone="gold">Design system preview</Badge>
+      </Container>
 
       <Section eyebrow="Typography" title="Type specimen">
         <div className="flex flex-col gap-6">
