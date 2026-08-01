@@ -21,4 +21,6 @@ export type NoteMeta = {
   category: string;
   /** ISO date. */
   date: string;
+  readingMinutes: number;
+  draft?: boolean;
 };

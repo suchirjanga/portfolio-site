@@ -9,8 +9,7 @@ type Props = {
 
 export default function NoteCard({ note }: Props) {
   return (
-    // Note pages arrive in Phase 6; until then cards land on the notes index.
-    <Link href="/notes" className="block h-full">
+    <Link href={`/notes/${note.slug}`} className="block h-full">
       <Card interactive className="flex h-full flex-col gap-2 p-5">
         <span className="font-mono text-xs tracking-wide text-gold uppercase">
           {note.category}

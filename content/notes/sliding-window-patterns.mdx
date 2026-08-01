@@ -1,0 +1,52 @@
+---
+title: "Sliding window patterns"
+summary: "Fixed vs dynamic windows, and the three tell-tale signs a problem wants one."
+category: "DSA"
+date: "2026-07-18"
+draft: false
+---
+
+Sliding window is the two-pointer family member for **contiguous
+subarrays/substrings**. Two variants, one decision.
+
+## Fixed window
+
+The window size `k` is given. Slide by adding the entering element and
+removing the leaving one — never recompute the whole window.
+
+```ts
+let sum = 0;
+for (let i = 0; i < nums.length; i++) {
+  sum += nums[i];
+  if (i >= k) sum -= nums[i - k];
+  if (i >= k - 1) best = Math.max(best, sum);
+}
+```
+
+## Dynamic window
+
+The window grows on the right and shrinks from the left whenever an
+invariant breaks ("at most K distinct", "sum < target", "no repeats").
+
+```ts
+let left = 0;
+for (let right = 0; right < s.length; right++) {
+  add(s[right]);
+  while (invariantBroken()) remove(s[left++]);
+  best = Math.max(best, right - left + 1);
+}
+```
+
+The `while` is the whole trick: each element enters once and leaves once,
+so it's O(n) even with the nested loop.
+
+## The three tell-tale signs
+
+1. The answer is about a **contiguous** run — subarray, substring, never
+   a subsequence
+2. There's a **constraint to maintain** — at most K distinct, sum below
+   X, no duplicates
+3. The asked quantity is a **max/min length or count** over such runs
+
+If "contiguous" is missing, it's probably prefix sums, DP, or sorting —
+not a window.

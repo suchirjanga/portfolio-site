@@ -5,7 +5,7 @@ import ProjectCard from '@/components/cards/ProjectCard';
 import Button from '@/components/ui/Button';
 import Container from '@/components/ui/Container';
 import Section from '@/components/ui/Section';
-import { SAMPLE_NOTES } from '@/lib/sample-content';
+import { getAllNotes } from '@/lib/notes';
 import { getAllPosts } from '@/lib/posts';
 import { getProjects } from '@/lib/projects';
 import { siteConfig } from '@/lib/site';
@@ -15,7 +15,7 @@ export default function HomePage() {
   const featured = posts.find((p) => p.featured) ?? posts[0];
   const latest = posts.filter((p) => p !== featured).slice(0, 3);
   const projects = getProjects().slice(0, 3);
-  const notes = SAMPLE_NOTES.slice(0, 4);
+  const notes = getAllNotes().slice(0, 4);
 
   return (
     <main>
