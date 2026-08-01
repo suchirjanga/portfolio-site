@@ -25,20 +25,26 @@ export default function ProjectCard({ project }: Props) {
             {project.year}
           </span>
         </div>
-        <Badge tone="gold" className="w-fit">
-          {project.role}
-        </Badge>
         <p className="line-clamp-3 text-sm leading-relaxed text-ink-muted">
           {project.description}
         </p>
+        {project.tech.length > 0 && (
+          <div className="flex flex-wrap gap-2">
+            {project.tech.slice(0, 4).map((t) => (
+              <Badge key={t}>{t}</Badge>
+            ))}
+            {project.tech.length > 4 && (
+              <Badge>+{project.tech.length - 4}</Badge>
+            )}
+          </div>
+        )}
         <div className="mt-auto flex gap-3 pt-2">
           {project.liveUrl && (
             <Button size="sm" href={project.liveUrl}>
               Live ↗
             </Button>
           )}
-          {/* Project detail pages arrive in Phase 5. */}
-          <Button variant="ghost" size="sm" href="/projects">
+          <Button variant="ghost" size="sm" href={`/projects/${project.slug}`}>
             Details
           </Button>
         </div>

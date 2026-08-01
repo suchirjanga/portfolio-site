@@ -12,6 +12,7 @@ export type Project = {
   thumbnail: string;
   liveUrl?: string;
   githubUrl?: string;
+  tech: string[];
   body: string;
 };
 
@@ -25,11 +26,12 @@ type Frontmatter = {
   thumbnail: string;
   liveUrl?: string;
   githubUrl?: string;
+  tech?: string[];
 };
 
-// The markdown still lives in the legacy Vite tree; Phase 5 moves it to
-// content/projects (Decap's home) and only this path changes.
-const PROJECTS_DIR = path.join(process.cwd(), 'src', 'content', 'projects');
+// Shared content home (Next.js now, Decap in Phase 7); the legacy Vite
+// app globs the same folder from src/content/projects.ts.
+const PROJECTS_DIR = path.join(process.cwd(), 'content', 'projects');
 
 function parseProject(filename: string, raw: string): Project {
   const parsed = fm<Frontmatter>(raw);
@@ -44,8 +46,13 @@ function parseProject(filename: string, raw: string): Project {
     thumbnail: attrs.thumbnail,
     liveUrl: attrs.liveUrl,
     githubUrl: attrs.githubUrl,
+    tech: attrs.tech ?? [],
     body: parsed.body,
   };
+}
+
+export function getProject(slug: string): Project | undefined {
+  return getProjects().find((p) => p.slug === slug);
 }
 
 /** All projects, sorted by explicit `order` first, then newest year. */

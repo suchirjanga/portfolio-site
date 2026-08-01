@@ -25,10 +25,10 @@ type Frontmatter = {
   githubUrl?: string;
 };
 
-// Vite picks up any .md added to /src/content/projects/ at build time.
-// To add a project: drop a new .md file in that folder, drop images into
-// public/projects/<slug>/, and redeploy. No code changes needed.
-const modules = import.meta.glob('./projects/*.md', {
+// Project markdown moved to /content/projects (shared with the Next.js
+// app and, later, Decap CMS). Vite globs it from outside src/ at build
+// time; drop a new .md there plus images in public/projects/<slug>/.
+const modules = import.meta.glob('../../content/projects/*.md', {
   query: '?raw',
   import: 'default',
   eager: true,

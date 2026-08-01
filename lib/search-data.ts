@@ -36,15 +36,14 @@ export function buildSearchDocs(): SearchDoc[] {
     url: '/notes',
   }));
 
-  // Project detail pages arrive in Phase 5.
   const projects: SearchDoc[] = getProjects().map((p) => ({
     id: `project:${p.slug}`,
     type: 'project',
     title: p.title,
     description: p.description,
     body: p.body,
-    tags: p.role,
-    url: '/projects',
+    tags: [p.role, ...p.tech].join(' '),
+    url: `/projects/${p.slug}`,
   }));
 
   return [...posts, ...notes, ...projects];
