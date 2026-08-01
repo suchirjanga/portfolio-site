@@ -7,6 +7,12 @@ slug: monolith
 description: A cinematic 3D fitness experience exploring strength, discipline, and progression through immersive scroll-driven storytelling and interactive visuals.
 thumbnail: /projects/monolith/thumbnail.svg
 liveUrl: https://monolith.sjanga.com
+tech:
+  - Next.js
+  - React Three Fiber
+  - GSAP
+  - Lenis
+  - TypeScript
 ---
 
 Monolith is a cinematic 3D fitness experience. Built with Next.js, React Three

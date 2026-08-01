@@ -7,6 +7,12 @@ slug: forge
 description: A habit, recovery, and performance tracking platform that connects with fitness devices and health data to help users build consistency and optimize training.
 thumbnail: /projects/forge/thumbnail.svg
 liveUrl: https://forge.sjanga.com
+tech:
+  - Next.js
+  - React
+  - TypeScript
+  - Prisma
+  - Auth.js
 ---
 
 Forge is a habit, recovery, and performance tracking platform. Built with

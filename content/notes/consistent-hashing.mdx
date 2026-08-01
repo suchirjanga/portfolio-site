@@ -1,0 +1,42 @@
+---
+title: "Consistent hashing in five minutes"
+summary: "Why naive modulo sharding falls over, and what the ring fixes."
+category: "System Design"
+date: "2026-07-12"
+draft: false
+---
+
+## The problem with `hash(key) % N`
+
+Modulo sharding works until `N` changes. Add or remove one server and
+almost **every** key maps to a different node — a full reshuffle, cache
+hit rate goes to zero, databases stampede.
+
+## The ring
+
+Consistent hashing places both **servers and keys** on the same hash
+circle (0 → 2³² wrapping around). A key belongs to the first server
+clockwise from it.
+
+- Add a server → only the keys between it and its predecessor move
+- Remove a server → only *its* keys move, to the next node clockwise
+- On average, `K/N` keys move instead of nearly all of them
+
+## Virtual nodes
+
+Real servers are few, so raw placement is lumpy — one node can own a huge
+arc. The fix: hash each server to **many** points on the ring
+("vnodes", often 100–200 per node). Load evens out statistically, and a
+beefier machine can simply get more vnodes.
+
+## Where you've already met it
+
+- **DynamoDB / Cassandra** — partition placement
+- **Memcached clients** (ketama) — cache key routing
+- **Load balancers** — sticky-ish routing without shared state
+
+<Callout type="tip">
+  Interview shortcut: say what moves. "Adding a node moves only the keys
+  in the arc it claims — about K/N of them" is the sentence that shows
+  you get it.
+</Callout>

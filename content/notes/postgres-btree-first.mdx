@@ -1,0 +1,49 @@
+---
+title: "Postgres indexes: B-tree first"
+summary: "When the default index is right, and the cases that actually need GIN."
+category: "Backend"
+date: "2026-06-30"
+draft: false
+---
+
+`CREATE INDEX` gives you a B-tree, and that's the right call far more
+often than the index-type menu suggests.
+
+## What a B-tree covers
+
+Equality and ranges — `=`, `<`, `>`, `BETWEEN`, `IN` — plus `ORDER BY`
+without a sort, prefix `LIKE 'abc%'`, and uniqueness enforcement. That's
+most WHERE clauses in a typical app.
+
+## The cases that want GIN
+
+GIN indexes what's **inside** a value rather than the value itself:
+
+- `jsonb` containment — `data @> '{"plan": "pro"}'`
+- Array membership — `tags @> ARRAY['dsa']`
+- Full-text search — `tsvector @@ tsquery`
+
+## Two force multipliers
+
+**Composite order matters.** `(user_id, created_at)` serves "this user's
+rows, newest first" in one shot; `(created_at, user_id)` doesn't. Left
+prefix rules.
+
+**Partial indexes cut cost.** If queries always filter on a state, index
+just that slice:
+
+```sql
+CREATE INDEX ON jobs (run_at)
+WHERE status = 'pending';
+```
+
+Smaller index, hotter cache, cheaper writes.
+
+## When the index won't help
+
+- Wrapping the column in a function (`lower(email) = …`) without a
+  matching expression index
+- Leading-wildcard `LIKE '%abc'`
+- Low-selectivity columns — the planner will pick a scan anyway
+
+`EXPLAIN (ANALYZE, BUFFERS)` settles arguments; guessing doesn't.

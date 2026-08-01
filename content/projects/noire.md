@@ -7,6 +7,10 @@ slug: noire
 description: A luxury 3D watch experience showcasing craftsmanship, precision, and timeless design through cinematic product storytelling.
 thumbnail: /projects/noire/thumbnail.svg
 liveUrl: https://noire.sjanga.com
+tech:
+  - Next.js
+  - React Three Fiber
+  - TypeScript
 ---
 
 Noire is a luxury 3D watch experience. Built with Next.js and React Three

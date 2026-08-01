@@ -1,0 +1,43 @@
+---
+title: "Temperature vs top-p, practically"
+summary: "What each knob actually changes about sampling, with practical defaults."
+category: "AI"
+date: "2026-07-05"
+draft: false
+---
+
+Both knobs shape the same thing — the probability distribution the next
+token is sampled from — but they act differently.
+
+## Temperature
+
+Divides the logits before softmax. Below 1.0 the distribution sharpens
+(high-probability tokens dominate); above 1.0 it flattens (tails get
+real weight); at 0 sampling collapses to greedy argmax.
+
+- **Low (0–0.3):** extraction, classification, code — anything with a
+  right answer
+- **Mid (0.5–0.8):** general writing, summaries
+- **High (0.9–1.2):** brainstorming, fiction — expect occasional
+  nonsense
+
+## Top-p (nucleus sampling)
+
+Sorts tokens by probability, keeps the smallest set whose cumulative
+probability reaches `p`, samples only inside it. The candidate pool
+**adapts**: confident contexts shrink it to a handful of tokens, open
+contexts widen it.
+
+## Practically
+
+1. Change **one knob**, keep the other at its default
+2. Temperature is the intuitive dial — reach for it first
+3. Top-p ≈ 0.9 mostly guards against the long tail; lowering it further
+   mainly fights rare-token weirdness
+4. Cranking both up multiplies chaos; cranking both down over-constrains
+
+<Callout type="info">
+  Sampling parameters are not a fix for prompt problems. If output is
+  wrong at temperature 0, the prompt or the model is the issue — not the
+  dial.
+</Callout>

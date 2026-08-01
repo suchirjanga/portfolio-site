@@ -1,0 +1,271 @@
+# Decap CMS configuration — the single source of truth for what the
+# admin dashboard can edit. Content lives in content/, media in
+# public/images (organized per collection below).
+
+backend:
+  name: github
+  repo: suchirjanga/portfolio-site
+  branch: main # CMS publishes to production; change only if the prod branch changes
+  base_url: https://sjanga.com # must match the deployed origin AND the GitHub OAuth app
+  auth_endpoint: api/oauth
+
+# Drafts/Review/Ready board backed by real GitHub pull requests.
+publish_mode: editorial_workflow
+
+# `npx decap-server` in the repo root lets /admin edit local files
+# directly during development (no OAuth needed on localhost).
+local_backend: true
+
+media_folder: public/images
+public_folder: /images
+
+editor:
+  preview: false
+
+collections:
+  # ─────────────────────────────── Blog ───────────────────────────────
+  - name: blog
+    label: Blog Posts
+    label_singular: Blog Post
+    folder: content/blog
+    extension: mdx
+    format: frontmatter
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    media_folder: /public/images/blog
+    public_folder: /images/blog
+    sortable_fields: [date, title]
+    fields:
+      - { name: title, label: Title, widget: string }
+      - name: slug
+        label: Slug (URL)
+        widget: string
+        required: false
+        hint: Overrides the URL segment. Leave empty to use the filename.
+      - name: description
+        label: SEO Description
+        widget: text
+        hint: Used in meta tags and as the card text when no excerpt is set.
+      - name: excerpt
+        label: Excerpt
+        widget: text
+        required: false
+        hint: Short card/listing text. Falls back to the SEO description.
+      - { name: date, label: Publish Date, widget: datetime, format: "YYYY-MM-DD", time_format: false }
+      - name: lastUpdated
+        label: Last Updated
+        widget: datetime
+        format: "YYYY-MM-DD"
+        time_format: false
+        required: false
+      - { name: author, label: Author, widget: string, default: "Suchir Janga" }
+      - name: tags
+        label: Tags
+        widget: list
+        default: []
+        allow_add: true
+      - name: cover
+        label: Cover Image
+        widget: image
+        required: false
+        hint: Shown on cards and the article header. Falls back to generated cover art.
+      - name: symbol
+        label: Cover Glyph
+        widget: string
+        required: false
+        hint: "Mono glyph for the generated cover when no image is set, e.g. </> or λ"
+      - { name: featured, label: Featured, widget: boolean, default: false, hint: "Eligible for the homepage featured slot." }
+      - { name: draft, label: Draft, widget: boolean, default: false, hint: "In the repo but not rendered anywhere." }
+      - { name: hidden, label: Hidden, widget: boolean, default: false, hint: "Hide from the site while keeping the file (archive)." }
+      - { name: body, label: Body, widget: markdown }
+
+  # ─────────────────────────────── Notes ──────────────────────────────
+  - name: notes
+    label: Notes
+    label_singular: Note
+    folder: content/notes
+    extension: mdx
+    format: frontmatter
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    media_folder: /public/images/notes
+    public_folder: /images/notes
+    sortable_fields: [date, title]
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: slug, label: Slug (URL), widget: string, required: false }
+      - name: category
+        label: Category
+        widget: string
+        hint: "e.g. DSA, System Design, AI, Backend — groups the notes index."
+      - { name: summary, label: Description, widget: text }
+      - { name: date, label: Date, widget: datetime, format: "YYYY-MM-DD", time_format: false }
+      - name: lastUpdated
+        label: Last Updated
+        widget: datetime
+        format: "YYYY-MM-DD"
+        time_format: false
+        required: false
+      - { name: tags, label: Tags, widget: list, default: [], required: false }
+      - { name: cover, label: Cover Image, widget: image, required: false }
+      - { name: featured, label: Featured, widget: boolean, default: false }
+      - { name: draft, label: Draft, widget: boolean, default: false }
+      - { name: hidden, label: Hidden, widget: boolean, default: false }
+      - { name: body, label: Content, widget: markdown }
+
+  # ────────────────────────────── Projects ────────────────────────────
+  - name: projects
+    label: Projects
+    label_singular: Project
+    folder: content/projects
+    extension: md
+    format: frontmatter
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    media_folder: /public/images/projects
+    public_folder: /images/projects
+    sortable_fields: [order, year, title]
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: slug, label: Slug (URL), widget: string, required: false }
+      - { name: order, label: Display Order, widget: number, required: false, value_type: int, hint: "Lower numbers sort first." }
+      - { name: year, label: Year, widget: string }
+      - name: completionDate
+        label: Completion Date
+        widget: datetime
+        format: "YYYY-MM-DD"
+        time_format: false
+        required: false
+      - { name: role, label: Role, widget: string, default: "Design & Development" }
+      - name: status
+        label: Status
+        widget: select
+        options: [shipped, in-progress, archived]
+        default: shipped
+      - name: projectType
+        label: Project Type
+        widget: select
+        options: [web-app, 3d-experience, site, tool, experiment]
+        required: false
+      - { name: description, label: Short Description, widget: text }
+      - { name: thumbnail, label: Thumbnail, widget: image }
+      - name: gallery
+        label: Gallery Images
+        widget: list
+        required: false
+        field: { name: image, label: Image, widget: image }
+      - { name: liveUrl, label: Live Demo URL, widget: string, required: false }
+      - { name: githubUrl, label: GitHub URL, widget: string, required: false }
+      - { name: tech, label: Tech Stack, widget: list, default: [] }
+      - { name: featured, label: Featured, widget: boolean, default: false }
+      - { name: hidden, label: Hidden, widget: boolean, default: false, hint: "Hide from the site while keeping the file (archive)." }
+      - { name: body, label: Long Description, widget: markdown }
+
+  # ─────────────────────────────── Pages ──────────────────────────────
+  - name: pages
+    label: Pages
+    files:
+      - name: about
+        label: About
+        file: content/pages/about.md
+        media_folder: /public/images/profile
+        public_folder: /images/profile
+        fields:
+          - { name: headline, label: Headline, widget: string }
+          - { name: profileImage, label: Profile Image, widget: image, required: false }
+          - name: metaLines
+            label: Side Notes
+            widget: list
+            required: false
+            hint: Short mono lines beside the bio (location, school…).
+          - { name: skills, label: Skills, widget: list, default: [], required: false }
+          - { name: techStack, label: Tech Stack, widget: list, default: [], required: false }
+          - name: experience
+            label: Experience
+            widget: list
+            required: false
+            fields:
+              - { name: role, label: Role, widget: string }
+              - { name: organization, label: Organization, widget: string }
+              - { name: period, label: Period, widget: string }
+              - { name: summary, label: Summary, widget: text, required: false }
+          - { name: body, label: Bio, widget: markdown }
+
+      - name: resume
+        label: Resume
+        file: content/pages/resume.md
+        media_folder: /public/files
+        public_folder: /files
+        fields:
+          - { name: summary, label: Summary, widget: text }
+          - { name: resumePdf, label: Resume PDF, widget: file, required: false }
+          - name: experience
+            label: Experience
+            widget: list
+            required: false
+            fields:
+              - { name: role, label: Role, widget: string }
+              - { name: organization, label: Organization, widget: string }
+              - { name: period, label: Period, widget: string }
+              - { name: details, label: Details, widget: list, required: false }
+          - name: education
+            label: Education
+            widget: list
+            required: false
+            fields:
+              - { name: degree, label: Degree, widget: string }
+              - { name: institution, label: Institution, widget: string }
+              - { name: period, label: Period, widget: string }
+          - { name: skills, label: Skills, widget: list, default: [], required: false }
+          - { name: certifications, label: Certifications, widget: list, required: false }
+          - { name: achievements, label: Achievements, widget: list, required: false }
+          - { name: body, label: Extra Notes, widget: markdown, required: false }
+
+      - name: contact
+        label: Contact
+        file: content/pages/contact.md
+        fields:
+          - { name: heading, label: Heading, widget: string }
+          - { name: email, label: Email, widget: string }
+          - { name: github, label: GitHub URL, widget: string, required: false }
+          - { name: linkedin, label: LinkedIn URL, widget: string, required: false }
+          - { name: twitter, label: "Twitter / X URL", widget: string, required: false }
+          - { name: body, label: Contact Text, widget: markdown }
+
+  # ──────────────────────────── Site Settings ─────────────────────────
+  - name: settings
+    label: Site Settings
+    files:
+      - name: site
+        label: Site Settings
+        file: content/settings/site.json
+        media_folder: /public/images/site
+        public_folder: /images/site
+        fields:
+          - { name: siteUrl, label: Site URL, widget: string, hint: "Canonical origin, e.g. https://sjanga.com — used for SEO, RSS, and sitemap." }
+          - { name: siteTitle, label: Site Title, widget: string }
+          - { name: handle, label: Brand Handle, widget: string, hint: "Wordmark in the sidebar, e.g. SJANGA." }
+          - { name: tagline, label: Tagline, widget: string }
+          - { name: description, label: Site Description, widget: text }
+          - { name: seoTitle, label: SEO Title, widget: string, required: false }
+          - { name: seoDescription, label: SEO Description, widget: text, required: false }
+          - { name: ogImage, label: OpenGraph Image, widget: image, required: false }
+          - { name: favicon, label: Favicon, widget: image, required: false }
+          - { name: logo, label: Logo, widget: image, required: false }
+          - { name: heroHeadline, label: Hero Headline, widget: string }
+          - { name: heroIntro, label: Hero Intro, widget: text }
+          - { name: heroMeta, label: Hero Meta Line, widget: string, required: false }
+          - { name: heroImage, label: Hero Image, widget: image, required: false }
+          - { name: profileImage, label: Profile Image, widget: image, required: false }
+          - { name: footerText, label: Footer Text, widget: text }
+          - { name: copyrightText, label: Copyright Text, widget: string }
+          - { name: github, label: GitHub URL, widget: string }
+          - { name: linkedin, label: LinkedIn URL, widget: string }
+          - { name: twitter, label: "Twitter / X URL", widget: string, required: false }
+          - { name: email, label: Email, widget: string }
+          - { name: resumeUrl, label: Resume URL, widget: string, required: false }
+          - { name: defaultAuthor, label: Default Author, widget: string }
+          - { name: analyticsId, label: Analytics ID, widget: string, required: false, hint: "Stored for later — not wired up yet." }

@@ -6,17 +6,22 @@ import tseslint from 'typescript-eslint'
 import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
-  globalIgnores(['dist']),
+  globalIgnores(['dist', '.next', 'next-env.d.ts']),
   {
     files: ['**/*.{ts,tsx}'],
     extends: [
       js.configs.recommended,
       tseslint.configs.recommended,
       reactHooks.configs.flat.recommended,
-      reactRefresh.configs.vite,
     ],
     languageOptions: {
       globals: globals.browser,
     },
+  },
+  {
+    // Fast-refresh constraints only apply to the legacy Vite app; Next.js
+    // route files legitimately export metadata alongside components.
+    files: ['src/**/*.{ts,tsx}'],
+    extends: [reactRefresh.configs.vite],
   },
 ])

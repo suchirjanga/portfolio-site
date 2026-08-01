@@ -1,0 +1,100 @@
+---
+title: "Mastering the Two-Pointer Technique"
+description: "The patterns behind two-pointer problems — converging, fast/slow, and same-direction — and how to recognize them under pressure."
+date: "2026-07-15"
+tags:
+  - DSA
+symbol: "#"
+draft: false
+---
+
+Two pointers is less a single technique than a family of them. The trick
+in an interview isn't executing the pattern — it's recognizing *which*
+member of the family the problem is asking for.
+
+## Converging pointers
+
+Start one pointer at each end, move them toward each other. This works
+when the array is **sorted** (or when position itself carries meaning)
+and you're looking for a pair that satisfies a condition.
+
+The classic is two-sum on a sorted array:
+
+```ts
+function twoSumSorted(nums: number[], target: number): [number, number] | null {
+  let lo = 0;
+  let hi = nums.length - 1;
+  while (lo < hi) {
+    const sum = nums[lo] + nums[hi];
+    if (sum === target) return [lo, hi];
+    if (sum < target) lo++;
+    else hi--;
+  }
+  return null;
+}
+```
+
+Why it works: if the sum is too small, only moving `lo` right can help —
+every pair with the current `lo` and a smaller `hi` is even smaller. Each
+step permanently eliminates one candidate, so the scan is O(n).
+
+### Recognizing it
+
+- Sorted input, or you're allowed to sort
+- "Find a pair/triple that sums to…"
+- Maximize width times height (container with most water)
+
+## Fast and slow pointers
+
+Both pointers move in the same direction at different speeds. This is the
+cycle-detection family (Floyd's algorithm): if there's a loop, the fast
+pointer laps the slow one.
+
+```ts
+function hasCycle(head: ListNode | null): boolean {
+  let slow = head;
+  let fast = head;
+  while (fast?.next) {
+    slow = slow!.next;
+    fast = fast.next.next;
+    if (slow === fast) return true;
+  }
+  return false;
+}
+```
+
+<Callout type="info">
+  The same shape solves "find the middle of a linked list" — when the
+  fast pointer hits the end, the slow one is at the midpoint.
+</Callout>
+
+## Same-direction read/write
+
+One pointer reads, one writes. This is the in-place compaction family:
+remove duplicates, move zeroes, filter in place — anywhere the answer is
+"the same array, but shorter or reordered."
+
+```ts
+function removeDuplicates(nums: number[]): number {
+  let write = 0;
+  for (let read = 0; read < nums.length; read++) {
+    if (read === 0 || nums[read] !== nums[write - 1]) {
+      nums[write++] = nums[read];
+    }
+  }
+  return write;
+}
+```
+
+## The pressure checklist
+
+When a problem smells like two pointers, ask in order:
+
+1. Is the input sorted, or sortable without breaking the problem? →
+   **converging**
+2. Is it a linked structure, or about detecting repetition? →
+   **fast/slow**
+3. Is the output the same array, modified in place? → **read/write**
+
+If none of the three fit, it's probably a sliding window — which is its
+own note.
