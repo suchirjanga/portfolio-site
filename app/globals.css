@@ -1,0 +1,65 @@
+@import 'tailwindcss';
+
+/*
+  Design tokens — single source of truth for the redesign.
+  Identity carried over from the original site: warm off-white ink
+  (#F5EFE6) and a warm gold accent lineage (old amber #B8893A kept
+  as `gold-deep`). Surfaces follow the spec: near-black base, cards
+  slightly lighter, subtle warm borders.
+*/
+@theme {
+  /* Surfaces */
+  --color-bg: #090909;
+  --color-surface: #101010;
+  --color-surface-raised: #161614;
+  --color-overlay: rgb(9 9 9 / 0.72);
+
+  /* Lines */
+  --color-border: rgb(245 239 230 / 0.08);
+  --color-border-strong: rgb(245 239 230 / 0.16);
+
+  /* Ink */
+  --color-ink: #f5efe6;
+  --color-ink-muted: rgb(245 239 230 / 0.64);
+  --color-ink-faint: rgb(245 239 230 / 0.4);
+
+  /* Accent */
+  --color-gold: #e2b64f;
+  --color-gold-bright: #f0c866;
+  --color-gold-deep: #b8893a;
+  --color-gold-tint: rgb(226 182 79 / 0.1);
+
+  /* Type */
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, 'SFMono-Regular', Menlo,
+    monospace;
+
+  /* Shape */
+  --radius-card: 16px;
+  --radius-btn: 10px;
+  --radius-pill: 999px;
+
+  /* Motion */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  body {
+    @apply bg-bg font-sans text-ink antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: rgb(226 182 79 / 0.3);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 2px;
+  }
+}

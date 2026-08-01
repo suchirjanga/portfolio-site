@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import Nav from './components/Nav';
-import Home from './pages/Home';
-import ProjectDetail from './pages/ProjectDetail';
-import NotFound from './pages/NotFound';
+import Home from './views/Home';
+import ProjectDetail from './views/ProjectDetail';
+import NotFound from './views/NotFound';
 import { useLenis } from './hooks/useLenis';
 
 function ScrollToTop() {
