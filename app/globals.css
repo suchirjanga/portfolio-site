@@ -96,8 +96,49 @@
   }
 }
 
+/* Search dialog entrance (mount-only; unmount is instant by design). */
+@keyframes overlay-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 /* Article typography — applied to compiled MDX. */
 @layer components {
+  /* Animated underline for quiet inline links (footer, breadcrumbs). */
+  .link-underline {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-repeat: no-repeat;
+    background-position: left calc(100% - 1px);
+    background-size: 0% 1px;
+    transition: background-size 0.3s var(--ease-out-expo);
+  }
+
+  .link-underline:hover,
+  .link-underline:focus-visible {
+    background-size: 100% 1px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .link-underline {
+      transition: none;
+    }
+  }
+
   .prose {
     font-size: 1.02rem;
     line-height: 1.75;

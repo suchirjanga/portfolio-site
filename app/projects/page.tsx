@@ -1,4 +1,5 @@
 import ProjectCard from '@/components/cards/ProjectCard';
+import Reveal from '@/components/motion/Reveal';
 import Section from '@/components/ui/Section';
 import { getProjects } from '@/lib/projects';
 
@@ -19,8 +20,10 @@ export default function ProjectsPage() {
           design to deployment.
         </p>
         <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-          {projects.map((project) => (
-            <ProjectCard key={project.slug} project={project} />
+          {projects.map((project, i) => (
+            <Reveal key={project.slug} delay={Math.min(i * 0.06, 0.24)} className="h-full">
+              <ProjectCard project={project} />
+            </Reveal>
           ))}
         </div>
       </Section>

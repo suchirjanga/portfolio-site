@@ -1,4 +1,5 @@
 import NoteCard from '@/components/cards/NoteCard';
+import Reveal from '@/components/motion/Reveal';
 import Section from '@/components/ui/Section';
 import { getNotesByCategory } from '@/lib/notes';
 
@@ -20,7 +21,7 @@ export default function NotesPage() {
         </p>
         <div className="flex flex-col gap-12">
           {groups.map((group) => (
-            <div key={group.category}>
+            <Reveal key={group.category}>
               <h3 className="mb-4 flex items-baseline gap-2.5 font-mono text-sm tracking-[0.18em] text-gold uppercase">
                 {group.category}
                 <span className="text-xs text-ink-faint">
@@ -32,7 +33,7 @@ export default function NotesPage() {
                   <NoteCard key={note.slug} note={note} />
                 ))}
               </div>
-            </div>
+            </Reveal>
           ))}
         </div>
       </Section>

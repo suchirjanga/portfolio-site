@@ -47,7 +47,7 @@ export default async function NotePage({
           <header className="flex flex-col gap-4">
             <Link
               href="/notes"
-              className="font-mono text-xs tracking-[0.18em] text-ink-faint uppercase transition-colors duration-200 hover:text-ink"
+              className="link-underline w-fit font-mono text-xs tracking-[0.18em] text-ink-faint uppercase transition-colors duration-200 hover:text-ink"
             >
               ← Notes
             </Link>

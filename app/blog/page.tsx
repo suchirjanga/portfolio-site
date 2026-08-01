@@ -1,4 +1,5 @@
 import ArticleCard from '@/components/cards/ArticleCard';
+import Reveal from '@/components/motion/Reveal';
 import Section from '@/components/ui/Section';
 import { getAllPosts } from '@/lib/posts';
 
@@ -22,8 +23,10 @@ export default function BlogPage() {
           <p className="text-ink-muted">Nothing published yet — soon.</p>
         ) : (
           <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {posts.map((post) => (
-              <ArticleCard key={post.slug} post={post} withCover />
+            {posts.map((post, i) => (
+              <Reveal key={post.slug} delay={Math.min(i * 0.06, 0.24)} className="h-full">
+                <ArticleCard post={post} withCover />
+              </Reveal>
             ))}
           </div>
         )}

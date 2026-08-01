@@ -145,9 +145,9 @@ export default function SearchDialog() {
       <div
         aria-hidden
         onClick={close}
-        className="fixed inset-0 bg-overlay backdrop-blur-sm"
+        className="fixed inset-0 bg-overlay backdrop-blur-sm motion-safe:animate-[overlay-in_0.15s_ease-out]"
       />
-      <div className="relative mx-auto w-full max-w-xl overflow-hidden rounded-card border border-border-strong bg-surface shadow-2xl">
+      <div className="relative mx-auto w-full max-w-xl overflow-hidden rounded-card border border-border-strong bg-surface shadow-2xl motion-safe:animate-[panel-in_0.2s_cubic-bezier(0.16,1,0.3,1)]">
         <div className="flex items-center gap-3 border-b border-border px-4">
           <SearchIcon className="size-4.5 shrink-0 text-ink-faint" />
           <input

@@ -62,7 +62,7 @@ export default async function ArticlePage({
               <header className="flex flex-col gap-5">
                 <Link
                   href="/blog"
-                  className="font-mono text-xs tracking-[0.18em] text-ink-faint uppercase transition-colors duration-200 hover:text-ink"
+                  className="link-underline w-fit font-mono text-xs tracking-[0.18em] text-ink-faint uppercase transition-colors duration-200 hover:text-ink"
                 >
                   ← Blog
                 </Link>

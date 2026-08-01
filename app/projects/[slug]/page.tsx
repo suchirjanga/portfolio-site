@@ -43,7 +43,7 @@ export default async function ProjectPage({
           <header className="flex flex-col gap-5">
             <Link
               href="/projects"
-              className="font-mono text-xs tracking-[0.18em] text-ink-faint uppercase transition-colors duration-200 hover:text-ink"
+              className="link-underline w-fit font-mono text-xs tracking-[0.18em] text-ink-faint uppercase transition-colors duration-200 hover:text-ink"
             >
               ← Projects
             </Link>
@@ -113,7 +113,7 @@ export default async function ProjectPage({
           <footer className="mt-14 border-t border-border pt-8">
             <Link
               href="/projects"
-              className="font-mono text-xs tracking-[0.18em] text-ink-faint uppercase transition-colors duration-200 hover:text-ink"
+              className="link-underline w-fit font-mono text-xs tracking-[0.18em] text-ink-faint uppercase transition-colors duration-200 hover:text-ink"
             >
               ← Back to all projects
             </Link>

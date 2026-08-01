@@ -38,7 +38,7 @@ export default function Footer() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="text-sm text-ink-muted transition-colors duration-200 hover:text-ink"
+                  className="link-underline w-fit text-sm text-ink-muted transition-colors duration-200 hover:text-ink"
                 >
                   {item.label}
                 </Link>
@@ -52,7 +52,7 @@ export default function Footer() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="text-sm text-ink-muted transition-colors duration-200 hover:text-ink"
+                  className="link-underline w-fit text-sm text-ink-muted transition-colors duration-200 hover:text-ink"
                 >
                   {item.label}
                 </Link>
@@ -61,7 +61,7 @@ export default function Footer() {
                 href={settings.github}
                 target="_blank"
                 rel="noreferrer"
-                className="text-sm text-ink-muted transition-colors duration-200 hover:text-ink"
+                className="link-underline w-fit text-sm text-ink-muted transition-colors duration-200 hover:text-ink"
               >
                 GitHub
               </a>
@@ -69,7 +69,7 @@ export default function Footer() {
                 href={settings.linkedin}
                 target="_blank"
                 rel="noreferrer"
-                className="text-sm text-ink-muted transition-colors duration-200 hover:text-ink"
+                className="link-underline w-fit text-sm text-ink-muted transition-colors duration-200 hover:text-ink"
               >
                 LinkedIn
               </a>
